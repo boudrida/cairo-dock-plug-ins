@@ -30,7 +30,7 @@
 #include "applet-load-icons.h"
 #include "applet-read-data.h"
 
-#define CD_WEATHER_BASE_URL "http://xml.weather.com"
+#define CD_WEATHER_BASE_URL "https://wxdata.weather.com/wxdata"
 
 
 static xmlDocPtr _cd_weather_open_xml_buffer (const gchar *cData, xmlNodePtr *root_node, const gchar *cRootNodeName, GError **erreur)
@@ -140,9 +140,9 @@ static void _cd_weather_parse_data (CDSharedMemory *pSharedMemory, const gchar *
 				if (xmlStrcmp (fils->name, BAD_CAST "ut") == 0)
 				{
 					xmlChar *degree = xmlNodeGetContent (fils);
-					if (degree == NULL || strncmp ((gchar *)degree, "°", strlen ("°")) != 0)  // prepend � if not present.
+					if (degree == NULL || strncmp ((gchar *)degree, "Â°", strlen ("Â°")) != 0)  // prepend ° if not present.
 					{
-						pSharedMemory->wdata.units.cTemp = BAD_CAST g_strconcat ("°", (gchar *)degree, NULL);
+						pSharedMemory->wdata.units.cTemp = BAD_CAST g_strconcat ("Â°", (gchar *)degree, NULL);
 						g_free (degree);
 					}
 					else
